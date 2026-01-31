@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=4 uid="uid://c5tch4a2pi7am"]
+
+[ext_resource type="Texture2D" uid="uid://d0rocaskobkuj" path="res://sprites/parallax-background.png" id="1_qchbg"]
+[ext_resource type="Texture2D" uid="uid://bu1pkyblx1qxy" path="res://sprites/squid.png" id="2_kddj0"]
+[ext_resource type="Texture2D" uid="uid://jigcj0eoig0a" path="res://sprites/tile.png" id="2_mm0a5"]
+[ext_resource type="Texture2D" uid="uid://bf11cuvdvon1q" path="res://sprites/junk.png" id="2_o6wi6"]
+[ext_resource type="Script" uid="uid://b14vnycrd8gn5" path="res://code/player.gd" id="2_q8s1k"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o6wi6"]
+texture = ExtResource("2_mm0a5")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_emj6c"]
+sources/0 = SubResource("TileSetAtlasSource_o6wi6")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q8s1k"]
+radius = 8.0
+
+[node name="Playground" type="Node2D"]
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Parallax2D" type="Parallax2D" parent="Node2D"]
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/Parallax2D"]
+texture = ExtResource("1_qchbg")
+centered = false
+
+[node name="Parallax2D3" type="Parallax2D" parent="Node2D"]
+scroll_scale = Vector2(0.75, 0.75)
+repeat_size = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/Parallax2D3"]
+position = Vector2(320, 170)
+texture = ExtResource("2_o6wi6")
+
+[node name="Parallax2D2" type="Parallax2D" parent="Node2D"]
+scroll_offset = Vector2(320, 0)
+repeat_size = Vector2(64, 0)
+repeat_times = 10
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Node2D/Parallax2D2"]
+position = Vector2(320, -4)
+tile_map_data = PackedByteArray("AAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAACAAEAAAAAAAAAAAACAAIAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAADAAQAAAAAAAAAAAADAAUAAAAAAAAAAAABAAcAAAAAAAAAAAABAAgAAAAAAAAAAAACAAcAAAAAAAAAAAACAAgAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAsAAAAAAAAAAAADAAoAAAAAAAAAAAADAAsAAAAAAAAAAAABAA0AAAAAAAAAAAABAA4AAAAAAAAAAAACAA0AAAAAAAAAAAACAA4AAAAAAAAAAAAAABAAAAAAAAAAAAAAABEAAAAAAAAAAAADABAAAAAAAAAAAAADABEAAAAAAAAAAAABABMAAAAAAAAAAAABABQAAAAAAAAAAAACABMAAAAAAAAAAAACABQAAAAAAAAAAAAAABYAAAAAAAAAAAADABYAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_emj6c")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(296, 155)
+script = ExtResource("2_q8s1k")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("2_kddj0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_q8s1k")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+limit_top = 0
+limit_bottom = 360
