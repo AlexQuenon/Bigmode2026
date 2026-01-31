@@ -1,0 +1,12 @@
+# Godot 4+ specific ignores
+.godot/*
+export/
+*.tmp
+*.import
+*.translation
+*.tscn.converted
+*.gdns
+*.gdnlib
+/android/
+*~
+*.swp
